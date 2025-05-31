@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc -b && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "backend": "file:",
+    "cohere-ai": "^7.17.1",
+    "dotenv": "^16.5.0",
+    "openai": "^5.0.1",
+    "typescript": "^5.8.3"
+  }
+}
