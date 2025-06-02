@@ -70,6 +70,31 @@ app.post("/template", async (req, res) => {
   }
 });
 
+app.post('/chat',
+
+async (req,res) => {
+const messages=req.body.messages;
+    const response = await cohere.messages.chat({
+    model: 'command-a-03-2025',
+    messages: [
+      {
+        role: 'user',
+        content: 'hello world!',
+      },
+      {
+        role:'system',
+        content:getSystemPrompt(),
+      }
+    ],
+  });
+
+  console.log(response);
+
+  res.json({response:(response.messageContent[0]).text})
+});
+
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
