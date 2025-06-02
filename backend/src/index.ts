@@ -70,30 +70,38 @@ app.post("/template", async (req, res) => {
   }
 });
 
-app.post('/chat',
-
-async (req,res) => {
-const messages=req.body.messages;
-    const response = await cohere.messages.chat({
-    model: 'command-a-03-2025',
-    messages: [
+app.post("/chat", async (req, res) => {
+  const messages = req.body.messages;
+  try {
+    const allMessages = [
       {
-        role: 'user',
-        content: 'hello world!',
+        role: "system",
+        content: getSystemPrompt()
       },
-      {
-        role:'system',
-        content:getSystemPrompt(),
-      }
-    ],
-  });
+      ...messages
+    ];
 
-  console.log(response);
+    const response = await cohere.chat({
+      model: "command-a-03-2025",
+      messages: allMessages
+    });
 
-  res.json({response:(response.messageContent[0]).text})
+    console.log(response);
+
+    const messageContent = response.message?.content;
+    if (!messageContent || !messageContent[0]?.text) {
+      res.status(500).json({ message: "Invalid response format from Cohere" });
+      return;
+    }
+
+    res.json({
+      response: messageContent[0].text
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

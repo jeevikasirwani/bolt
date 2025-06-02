@@ -76,6 +76,36 @@ app.post("/template", (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json({ message: "Internal server error" });
     }
 }));
+app.post("/chat", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
+    const messages = req.body.messages;
+    try {
+        const allMessages = [
+            {
+                role: "system",
+                content: (0, prompt_1.getSystemPrompt)()
+            },
+            ...messages
+        ];
+        const response = yield cohere.chat({
+            model: "command-a-03-2025",
+            messages: allMessages
+        });
+        console.log(response);
+        const messageContent = (_a = response.message) === null || _a === void 0 ? void 0 : _a.content;
+        if (!messageContent || !((_b = messageContent[0]) === null || _b === void 0 ? void 0 : _b.text)) {
+            res.status(500).json({ message: "Invalid response format from Cohere" });
+            return;
+        }
+        res.json({
+            response: messageContent[0].text
+        });
+    }
+    catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
