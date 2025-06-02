@@ -1,8 +1,11 @@
-import { MODIFICATIONS_TAG_NAME, WORK_DIR,allowedHTMLElements,stripIndents } from './constants';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CONTINUE_PROMPT = exports.getSystemPrompt = exports.BASE_PROMPT = void 0;
+const constants_1 = require("./constants");
 // import { allowedHTMLElements } from '~/utils/markdown';
 // import { stripIndents } from '~/utils/stripIndent';
-export const BASE_PROMPT = "For all designs I ask you to make, have them be beautiful, not cookie cutter. Make webpages that are fully featured and worthy for production.\n\nBy default, this template supports JSX syntax with Tailwind CSS classes, React hooks, and Lucide React for icons. Do not install other packages for UI themes, icons, etc unless absolutely necessary or I request them.\n\nUse icons from lucide-react for logos.\n\nUse stock photos from unsplash where appropriate, only valid URLs you know exist. Do not download the images, only link to them in image tags.\n\n";
-export const getSystemPrompt = (cwd: string = WORK_DIR) => `
+exports.BASE_PROMPT = "For all designs I ask you to make, have them be beautiful, not cookie cutter. Make webpages that are fully featured and worthy for production.\n\nBy default, this template supports JSX syntax with Tailwind CSS classes, React hooks, and Lucide React for icons. Do not install other packages for UI themes, icons, etc unless absolutely necessary or I request them.\n\nUse icons from lucide-react for logos.\n\nUse stock photos from unsplash where appropriate, only valid URLs you know exist. Do not download the images, only link to them in image tags.\n\n";
+const getSystemPrompt = (cwd = constants_1.WORK_DIR) => `
 You are Bolt, an expert AI assistant and exceptional senior software developer with vast knowledge across multiple programming languages, frameworks, and best practices.
 
 <system_constraints>
@@ -37,11 +40,11 @@ You are Bolt, an expert AI assistant and exceptional senior software developer w
 </code_formatting_info>
 
 <message_formatting_info>
-  You can make the output pretty by using only the following available HTML elements: ${allowedHTMLElements.map((tagName) => `<${tagName}>`).join(', ')}
+  You can make the output pretty by using only the following available HTML elements: ${constants_1.allowedHTMLElements.map((tagName) => `<${tagName}>`).join(', ')}
 </message_formatting_info>
 
 <diff_spec>
-  For user-made file modifications, a \`<${MODIFICATIONS_TAG_NAME}>\` section will appear at the start of the user message. It will contain either \`<diff>\` or \`<file>\` elements for each modified file:
+  For user-made file modifications, a \`<${constants_1.MODIFICATIONS_TAG_NAME}>\` section will appear at the start of the user message. It will contain either \`<diff>\` or \`<file>\` elements for each modified file:
 
     - \`<diff path="/some/file/path.ext">\`: Contains GNU unified diff format changes
     - \`<file path="/some/file/path.ext">\`: Contains the full new content of the file
@@ -62,7 +65,7 @@ You are Bolt, an expert AI assistant and exceptional senior software developer w
 
   Example:
 
-  <${MODIFICATIONS_TAG_NAME}>
+  <${constants_1.MODIFICATIONS_TAG_NAME}>
     <diff path="/home/project/src/main.js">
       @@ -2,7 +2,10 @@
         return a + b;
@@ -81,7 +84,7 @@ You are Bolt, an expert AI assistant and exceptional senior software developer w
     <file path="/home/project/package.json">
       // full file content here
     </file>
-  </${MODIFICATIONS_TAG_NAME}>
+  </${constants_1.MODIFICATIONS_TAG_NAME}>
 </diff_spec>
 
 <artifact_info>
@@ -277,8 +280,8 @@ Here are some examples of correct usage of artifacts:
   </example>
 </examples>
 `;
-
-export const CONTINUE_PROMPT = stripIndents`
+exports.getSystemPrompt = getSystemPrompt;
+exports.CONTINUE_PROMPT = (0, constants_1.stripIndents) `
   Continue your prior response. IMPORTANT: Immediately begin from where you left off without any interruptions.
   Do not repeat any content, including artifact and action tags.
 `;
