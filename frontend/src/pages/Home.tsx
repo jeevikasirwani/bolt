@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaTwitter, FaYoutube, FaDiscord, FaReddit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import CodeFile from "./CodeFile";
+
 
 function Home() {
     const navigate = useNavigate();
