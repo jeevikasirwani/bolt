@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import { FaTwitter, FaYoutube, FaDiscord, FaReddit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { Wand2 } from 'lucide-react';
+
+
 
 
 function Home() {
     const [prompt, setPrompt] = useState("");
+    
     const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (prompt.trim()) {
-            navigate('/chat', { state: { prompt } });
+            navigate('/chat', { 
+                state: { 
+                    prompt
+                } 
+            });
         }
     };
 
