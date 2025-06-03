@@ -31,8 +31,8 @@ function FileNode({item,depth,onFileClick}:FileNodeProps){
         }
     }
     return (
-        <div className='select-none'>
-            <div className='flex items-center gap-2 p-2 hover:bg-gray-800 rounded-md cursor-pointer pl-1.5' onClick={handleClick}>
+        <div className='select-none bg-slate-900/90'>
+            <div className=' flex items-center gap-2 p-2 hover:bg-gray-800 rounded-md cursor-pointer pl-1.5 break-words' onClick={handleClick}>
 
                 {item.type==='folder'&& (
                     <span className='text-gray-400'>
@@ -48,7 +48,7 @@ function FileNode({item,depth,onFileClick}:FileNodeProps){
                     <FaFile className="w-4 h-4 text-gray-400"/>
                 )
                 }
-                <span className='text-gray-200'>{item.name}</span>
+                <span className='text-gray-200 break-words'>{item.name}</span>
 
             </div>
             {item.type==='folder'&& isExpanded && item.children && (
@@ -67,12 +67,12 @@ function FileNode({item,depth,onFileClick}:FileNodeProps){
 }
 function FileExplorer({files,onFileSelect}:FileExplorerProps) {
   return (
-    <div className="bg-gray-900 rounded-lg shadow-lg p-4 h-full overflow-auto">
+    <div className="bg-gray-900 rounded-lg shadow-lg p-4 h-full min-w-[220px] max-w-xs w-full">
       <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-100">
         <FaFolderTree className="w-5 h-5" />
         File Explorer
       </h2>
-      <div className="space-y-1">
+      <div className="space-y-1 break-words">
         {files.map((file, index) => (
           <FileNode
             key={`${file.path}-${index}`}
