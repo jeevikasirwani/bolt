@@ -1,7 +1,6 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import type { FileViewerProps } from '../types';
-import { FaChevronDown, FaChevronRight, FaFolderTree, FaFile } from 'react-icons/fa';
 
 export function FileViewer({ file, onClose }: FileViewerProps) {
   if (!file) return null;
@@ -26,8 +25,4 @@ export function FileViewer({ file, onClose }: FileViewerProps) {
       </div>
     </div>
   );
-}
-
-function handleClick() {
-  // Implementation of handleClick function
 }

@@ -12,6 +12,7 @@ import { BACKEND_URL } from '../config';
 import { parseXml } from '../steps';
 import { useWebContainer } from '../hooks/useWebContainer';
 import { Loader } from '../components/Loader';
+import type { FileNode } from '@webcontainer/api';
 
 
 
@@ -144,7 +145,9 @@ function CodeFile() {
 
     // Mount the structure if WebContainer is available
     console.log(mountStructure);
-    webcontainer?.mount(mountStructure);
+    if (webcontainer) {
+      webcontainer.mount(mountStructure) as FileNode;
+    }
   }, [files, webcontainer]);
 
 
@@ -192,7 +195,7 @@ function CodeFile() {
   return (
     <div className="min-h-screen bg-radial-[at_5%_5%] from-slate-900 via-blue-800 to-black to-100% flex flex-col">
       <header className="bg-slate-800/20 border-b border-gray-700 px-6 py-4">
-        <h1 className="text-xl font-semibold text-gray-100">Bolt</h1>
+        <h1 className="text-xl font-semibold text-gray-100" style={{ fontFamily:"'Playpen Sans Thai',cursive" }}>Bolt</h1>
         <p className="text-sm text-gray-400 mt-1">Prompt: {prompt}</p>
       </header>
 
