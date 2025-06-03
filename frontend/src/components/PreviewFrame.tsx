@@ -36,7 +36,7 @@ export function PreviewFrame({ files, webContainer, showWarning }: PreviewFrameP
 
   if (showWarning || error?.includes('SharedArrayBuffer')) {
     return (
-      <div className="h-full flex items-center justify-center text-red-400 text-center p-4">
+      <div className="h-full opacity-50 flex items-center justify-center text-red-400 text-center p-4">
         <div>
           <p className="mb-2 font-bold">Preview is unavailable.</p>
           <p>Your browser/server must support <code>SharedArrayBuffer</code> and be served with the following headers:</p>

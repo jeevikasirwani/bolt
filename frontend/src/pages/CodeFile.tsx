@@ -42,7 +42,7 @@ function CodeFile() {
     steps.filter(({ status }) => status === "pending").map(step => {
       updateHappened = true;
       if (step?.type === StepType.CreateFile) {
-        let parsedPath = step.path?.split("/") ?? []; // ["src", "components", "App.tsx"]
+        let    parsedPath = step.path?.split("/") ?? []; // ["src", "components", "App.tsx"]
         let currentFileStructure = [...originalFiles]; // {}
         const finalAnswerRef = currentFileStructure;
 
@@ -147,6 +147,8 @@ function CodeFile() {
     webcontainer?.mount(mountStructure);
   }, [files, webcontainer]);
 
+
+  // routes
   async function init() {
     const response = await axios.post(`${BACKEND_URL}/template`, {
       prompt: prompt.trim()
@@ -189,8 +191,8 @@ function CodeFile() {
 
   return (
     <div className="min-h-screen bg-radial-[at_5%_5%] from-slate-900 via-blue-800 to-black to-100% flex flex-col">
-      <header className="bg-gray-800 border-b border-gray-700 px-6 py-4">
-        <h1 className="text-xl font-semibold text-gray-100">Website Builder</h1>
+      <header className="bg-slate-800/20 border-b border-gray-700 px-6 py-4">
+        <h1 className="text-xl font-semibold text-gray-100">Bolt</h1>
         <p className="text-sm text-gray-400 mt-1">Prompt: {prompt}</p>
       </header>
 
@@ -244,12 +246,12 @@ function CodeFile() {
           </div>
           <div className="col-span-1 overflow-auto
           [&::-webkit-scrollbar]:w-2
-  [&::-webkit-scrollbar-track]:rounded-full
-  [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:rounded-full
-  [&::-webkit-scrollbar-thumb]:bg-gray-300
-  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+          [&::-webkit-scrollbar-track]:rounded-full
+          [&::-webkit-scrollbar-track]:bg-gray-100
+          [&::-webkit-scrollbar-thumb]:rounded-full
+          [&::-webkit-scrollbar-thumb]:bg-gray-300
+          dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+          dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
             <FileExplorer
               files={files}
               onFileSelect={setSelectedFile}
