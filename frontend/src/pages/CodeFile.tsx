@@ -44,7 +44,7 @@ function CodeFile() {
       updateHappened = true;
       if (step?.type === StepType.CreateFile) {
         let    parsedPath = step.path?.split("/") ?? []; // ["src", "components", "App.tsx"]
-        let currentFileStructure = [...originalFiles]; // {}
+        let currentFileStructure = [...originalFiles]; 
         const finalAnswerRef = currentFileStructure;
 
         let currentFolder = ""
@@ -54,7 +54,7 @@ function CodeFile() {
           parsedPath = parsedPath.slice(1);
 
           if (!parsedPath.length) {
-            // final file
+            
             const file = currentFileStructure.find(x => x.path === currentFolder)
             if (!file) {
               currentFileStructure.push({
@@ -67,10 +67,10 @@ function CodeFile() {
               file.content = step.code;
             }
           } else {
-            /// in a folder
+       
             const folder = currentFileStructure.find(x => x.path === currentFolder)
             if (!folder) {
-              // create the folder
+            
               currentFileStructure.push({
                 name: currentFolderName,
                 type: 'folder',
@@ -107,7 +107,7 @@ function CodeFile() {
 
       const processFile = (file: FileItem, isRootFolder: boolean) => {
         if (file.type === 'folder') {
-          // For folders, create a directory entry
+          
           mountStructure[file.name] = {
             directory: file.children ?
               Object.fromEntries(
@@ -123,7 +123,7 @@ function CodeFile() {
               }
             };
           } else {
-            // For files, create a file entry with contents
+            
             return {
               file: {
                 contents: file.content || ''
@@ -135,7 +135,6 @@ function CodeFile() {
         return mountStructure[file.name];
       };
 
-      // Process each top-level file/folder
       files.forEach(file => processFile(file, true));
 
       return mountStructure;
@@ -143,7 +142,7 @@ function CodeFile() {
 
     const mountStructure = createMountStructure(files);
 
-    // Mount the structure if WebContainer is available
+    
     console.log(mountStructure);
     if (webcontainer) {
       webcontainer.mount(mountStructure) as FileNode;
